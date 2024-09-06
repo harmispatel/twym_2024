@@ -9,6 +9,7 @@ import 'package:twym_2024/view/register/register_view.dart';
 import '../../widget/common_social_media_container.dart';
 import '../../widget/common_text_field.dart';
 import '../../widget/primary_button.dart';
+import '../subscription/subscription_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -29,7 +30,7 @@ class _LoginViewState extends State<LoginView> {
           //   isTitleBold: false,
           // ),
           body: Center(
-            child: Padding(
+            child: SingleChildScrollView(
               padding: kCommonScreenPadding,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +74,9 @@ class _LoginViewState extends State<LoginView> {
                     height: 50,
                     label: "Sign in",
                     lblSize: 20,
-                    onPress: () {},
+                    onPress: () {
+                      push(SubscriptionView());
+                    },
                   ),
                   kCommonSpaceV20,
                   InkWell(

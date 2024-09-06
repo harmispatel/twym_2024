@@ -27,7 +27,7 @@ class _RegisterViewState extends State<RegisterView> {
           //   isTitleBold: false,
           // ),
           body: Center(
-            child: Padding(
+            child: SingleChildScrollView(
               padding: kCommonScreenPadding,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

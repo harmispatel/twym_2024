@@ -12,6 +12,7 @@ class CommonTextField extends StatelessWidget {
   final int? maxLength;
   final bool isRequired;
   final bool isIconButton;
+  final bool isPrefixIconButton;
   final bool obscureText;
   final bool? enabled;
   final FocusNode? focusNode;
@@ -28,6 +29,7 @@ class CommonTextField extends StatelessWidget {
     this.maxLength,
     this.isRequired = false,
     this.isIconButton = false,
+    this.isPrefixIconButton = false,
     this.obscureText = false,
     this.enabled,
     this.textInputAction,
@@ -76,6 +78,15 @@ class CommonTextField extends StatelessWidget {
             : null,
         decoration: InputDecoration(
           counterText: "",
+          prefixIcon: isPrefixIconButton
+              ? IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: CommonColors.mGrey,
+                  ),
+                  onPressed: onIconPressed,
+                )
+              : null,
           suffixIcon: isIconButton
               ? IconButton(
                   icon: Icon(
