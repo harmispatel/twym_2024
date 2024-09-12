@@ -16,6 +16,7 @@ const SizedBox kCommonSpaceV5 = SizedBox(height: 5);
 const SizedBox kCommonSpaceV3 = SizedBox(height: 3);
 const SizedBox kCommonSpaceH5 = SizedBox(width: 5);
 const SizedBox kCommonSpaceV10 = SizedBox(height: 10);
+const SizedBox kCommonSpaceV8 = SizedBox(height: 8);
 const SizedBox kCommonSpaceH10 = SizedBox(width: 10);
 const SizedBox kCommonSpaceH8 = SizedBox(width: 8);
 const EdgeInsets kCommonScreenPadding = EdgeInsets.all(15);

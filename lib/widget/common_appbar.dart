@@ -28,7 +28,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSize {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: bgColor ?? CommonColors.primaryColor,
+      backgroundColor: bgColor ?? CommonColors.mTransparent,
       elevation: 0,
       iconTheme: iconTheme,
       leading: leading,
@@ -38,13 +38,12 @@ class CommonAppBar extends StatelessWidget implements PreferredSize {
         title!,
         style: isTitleBold!
             ? getAppStyle(
-                fontSize: 25,
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: CommonColors.blackColor,
               )
             : getAppStyle(
-                fontSize:
-                    Theme.of(context).appBarTheme.titleTextStyle!.fontSize,
+                fontSize: 22,
                 fontWeight:
                     Theme.of(context).appBarTheme.titleTextStyle!.fontWeight,
                 color: CommonColors.blackColor,

@@ -340,6 +340,7 @@ class _HomeViewState extends State<HomeView> {
                                               left: 15),
                                           child: Text(
                                             "Register",
+                                            overflow: TextOverflow.ellipsis,
                                             style: getAppStyle(
                                                 color: CommonColors.mWhite,
                                                 fontSize: 16),
@@ -1461,131 +1462,689 @@ class _HomeViewState extends State<HomeView> {
                     ],
                   ),
                 ),
-                kCommonSpaceV10,
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                        color: CommonColors.mWhite,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: CommonColors.mGrey500,
-                            blurRadius: 3.0,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: CommonColors.mWhite,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: CommonColors.mGrey500,
-                            blurRadius: 3.0,
-                          ),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: IntrinsicWidth(
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 80,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          "https://images.inc.com/uploaded_files/image/1920x1080/getty_473909426_129584.jpg"),
-                                      fit: BoxFit.cover),
+                kCommonSpaceV15,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        right: 5, left: 5, top: 5, bottom: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            color: CommonColors.mWhite,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: CommonColors.mGrey500,
+                                offset: const Offset(
+                                  2.0,
+                                  5.0,
                                 ),
-                              ),
-                              kCommonSpaceH8,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Project Team Meeting",
-                                    style: getAppStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  ),
-                                  Text(
-                                    "Work-event",
-                                    style: getAppStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 10),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.location_on_outlined,
-                                        size: 20,
-                                      ),
-                                      Text(
-                                        "Ahmedabad, India",
-                                        style: getAppStyle(
-                                          fontSize: 10,
-                                          color: CommonColors.blackColor,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 5, right: 5),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: CommonColors.mGrey300,
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 8, right: 8, top: 5, bottom: 5),
-                                    child: Text(
-                                      "Outlook Calendar",
-                                      style:
-                                          getAppStyle(height: 1, fontSize: 10),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(
-                                    Icons.favorite_outline_outlined,
-                                    size: 16,
-                                  ),
-                                  Icon(
-                                    Icons.share,
-                                    size: 16,
-                                  ),
-                                  Icon(
-                                    Icons.thumb_down_alt_outlined,
-                                    size: 16,
-                                  ),
-                                ],
+                                blurRadius: 5.0,
+                                spreadRadius: 0.0,
+                              ), //BoxShadow
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 10.0,
+                                spreadRadius: 0.0,
+                              ), //BoxShadow
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Today",
+                              style: getAppStyle(
+                                  color: CommonColors.primaryColor,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
+                        kCommonSpaceH10,
+                        Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: CommonColors.mWhite,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: CommonColors.mGrey500,
+                                blurRadius: 3.0,
                               ),
                             ],
                           ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: IntrinsicWidth(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              "https://images.inc.com/uploaded_files/image/1920x1080/getty_473909426_129584.jpg"),
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  kCommonSpaceH8,
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              width: 180,
+                                              child: Text(
+                                                "Project Team Meeting",
+                                                style: getAppStyle(
+                                                  fontSize: 12,
+                                                  color:
+                                                      CommonColors.blackColor,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.favorite_outline_outlined,
+                                              size: 16,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: 110,
+                                              child: Text(
+                                                "Work-event",
+                                                style: getAppStyle(
+                                                  fontSize: 10,
+                                                  color:
+                                                      CommonColors.blackColor,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5, right: 5),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: CommonColors
+                                                      .appGreenColor
+                                                      .withOpacity(0.4),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8,
+                                                          right: 8,
+                                                          top: 5,
+                                                          bottom: 5),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.check_circle,
+                                                        size: 10,
+                                                        color: CommonColors
+                                                            .appGreenColor,
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 2),
+                                                        child: Text(
+                                                          "Following",
+                                                          style: getAppStyle(
+                                                              color: CommonColors
+                                                                  .appGreenColor,
+                                                              height: 1,
+                                                              fontSize: 8),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.share,
+                                              size: 16,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Icon(
+                                              Icons.location_on_outlined,
+                                              size: 20,
+                                            ),
+                                            SizedBox(
+                                              width: 110,
+                                              child: Text(
+                                                "Iscon, Ahmedabad, India",
+                                                style: getAppStyle(
+                                                  fontSize: 10,
+                                                  color:
+                                                      CommonColors.blackColor,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5, right: 5),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: CommonColors.mGrey300,
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8,
+                                                          right: 8,
+                                                          top: 5,
+                                                          bottom: 5),
+                                                  child: Text(
+                                                    "Outlook Calendar",
+                                                    style: getAppStyle(
+                                                        height: 1, fontSize: 8),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.thumb_down_alt_outlined,
+                                              size: 16,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                )
+                  ),
+                ),
+                kCommonSpaceV10,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        right: 5, left: 5, top: 5, bottom: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            color: CommonColors.mTransparent,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        kCommonSpaceH10,
+                        Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: CommonColors.mWhite,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: CommonColors.mGrey500,
+                                blurRadius: 3.0,
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: IntrinsicWidth(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              "https://images.inc.com/uploaded_files/image/1920x1080/getty_473909426_129584.jpg"),
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  kCommonSpaceH8,
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              width: 180,
+                                              child: Text(
+                                                "Project Team Meeting",
+                                                style: getAppStyle(
+                                                  fontSize: 12,
+                                                  color:
+                                                      CommonColors.blackColor,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.favorite_outline_outlined,
+                                              size: 16,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: 110,
+                                              child: Text(
+                                                "Work-event",
+                                                style: getAppStyle(
+                                                  fontSize: 10,
+                                                  color:
+                                                      CommonColors.blackColor,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5, right: 5),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: CommonColors
+                                                      .appGreenColor
+                                                      .withOpacity(0.4),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8,
+                                                          right: 8,
+                                                          top: 5,
+                                                          bottom: 5),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.check_circle,
+                                                        size: 10,
+                                                        color: CommonColors
+                                                            .appGreenColor,
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 2),
+                                                        child: Text(
+                                                          "Following",
+                                                          style: getAppStyle(
+                                                              color: CommonColors
+                                                                  .appGreenColor,
+                                                              height: 1,
+                                                              fontSize: 8),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.share,
+                                              size: 16,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Icon(
+                                              Icons.location_on_outlined,
+                                              size: 20,
+                                            ),
+                                            SizedBox(
+                                              width: 110,
+                                              child: Text(
+                                                "Iscon, Ahmedabad, India",
+                                                style: getAppStyle(
+                                                  fontSize: 10,
+                                                  color:
+                                                      CommonColors.blackColor,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5, right: 5),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: CommonColors.mGrey300,
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8,
+                                                          right: 8,
+                                                          top: 5,
+                                                          bottom: 5),
+                                                  child: Text(
+                                                    "Outlook Calendar",
+                                                    style: getAppStyle(
+                                                        height: 1, fontSize: 8),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.thumb_down_alt_outlined,
+                                              size: 16,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                kCommonSpaceV10,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        right: 5, left: 5, top: 5, bottom: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 60,
+                          width: 60,
+                          decoration: BoxDecoration(
+                            color: CommonColors.mWhite,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: CommonColors.mGrey500,
+                                offset: const Offset(
+                                  2.0,
+                                  5.0,
+                                ),
+                                blurRadius: 5.0,
+                                spreadRadius: 0.0,
+                              ), //BoxShadow
+                              BoxShadow(
+                                color: Colors.white,
+                                offset: const Offset(0.0, 0.0),
+                                blurRadius: 10.0,
+                                spreadRadius: 0.0,
+                              ), //BoxShadow
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Today",
+                              style: getAppStyle(
+                                  color: CommonColors.primaryColor,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
+                        kCommonSpaceH10,
+                        Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: CommonColors.mWhite,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: CommonColors.mGrey500,
+                                blurRadius: 3.0,
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: IntrinsicWidth(
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                              "https://images.inc.com/uploaded_files/image/1920x1080/getty_473909426_129584.jpg"),
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  kCommonSpaceH8,
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              width: 180,
+                                              child: Text(
+                                                "Project Team Meeting",
+                                                style: getAppStyle(
+                                                  fontSize: 12,
+                                                  color:
+                                                      CommonColors.blackColor,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.favorite_outline_outlined,
+                                              size: 16,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: 110,
+                                              child: Text(
+                                                "Work-event",
+                                                style: getAppStyle(
+                                                  fontSize: 10,
+                                                  color:
+                                                      CommonColors.blackColor,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5, right: 5),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: CommonColors
+                                                      .appGreenColor
+                                                      .withOpacity(0.4),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8,
+                                                          right: 8,
+                                                          top: 5,
+                                                          bottom: 5),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.check_circle,
+                                                        size: 10,
+                                                        color: CommonColors
+                                                            .appGreenColor,
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 2),
+                                                        child: Text(
+                                                          "Following",
+                                                          style: getAppStyle(
+                                                              color: CommonColors
+                                                                  .appGreenColor,
+                                                              height: 1,
+                                                              fontSize: 8),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.share,
+                                              size: 16,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Icon(
+                                              Icons.location_on_outlined,
+                                              size: 20,
+                                            ),
+                                            SizedBox(
+                                              width: 110,
+                                              child: Text(
+                                                "Iscon, Ahmedabad, India",
+                                                style: getAppStyle(
+                                                  fontSize: 10,
+                                                  color:
+                                                      CommonColors.blackColor,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5, right: 5),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: CommonColors.mGrey300,
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8,
+                                                          right: 8,
+                                                          top: 5,
+                                                          bottom: 5),
+                                                  child: Text(
+                                                    "Outlook Calendar",
+                                                    style: getAppStyle(
+                                                        height: 1, fontSize: 8),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.thumb_down_alt_outlined,
+                                              size: 16,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

@@ -8,10 +8,13 @@ class CommonTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? hintText;
   final TextInputType? inputType;
+  final GestureTapCallback? onTap;
+  final IconData? suffixIcon;
   final int? maxLines;
   final int? maxLength;
   final bool isRequired;
   final bool isIconButton;
+  final bool readOnly;
   final bool isPrefixIconButton;
   final bool obscureText;
   final bool? enabled;
@@ -25,10 +28,13 @@ class CommonTextField extends StatelessWidget {
     this.controller,
     this.hintText,
     this.inputType,
+    this.onTap,
+    this.suffixIcon,
     this.maxLines,
     this.maxLength,
     this.isRequired = false,
     this.isIconButton = false,
+    this.readOnly = false,
     this.isPrefixIconButton = false,
     this.obscureText = false,
     this.enabled,
@@ -60,6 +66,7 @@ class CommonTextField extends StatelessWidget {
       ),
       margin: const EdgeInsets.symmetric(vertical: 7),
       child: TextFormField(
+        onTap: onTap,
         onChanged: onEditComplete,
         textInputAction: textInputAction,
         keyboardType: inputType,
@@ -68,6 +75,7 @@ class CommonTextField extends StatelessWidget {
         cursorColor: CommonColors.primaryColor,
         enabled: enabled ?? true,
         obscureText: obscureText,
+        readOnly: readOnly ?? false,
         validator: isRequired
             ? (value) {
                 if (value == null || value.isEmpty) {
@@ -90,8 +98,8 @@ class CommonTextField extends StatelessWidget {
           suffixIcon: isIconButton
               ? IconButton(
                   icon: Icon(
-                    Icons.search,
-                    color: CommonColors.primaryColor,
+                    suffixIcon,
+                    color: CommonColors.mGrey,
                   ),
                   onPressed: onIconPressed,
                 )
