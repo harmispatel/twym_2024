@@ -3,10 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:twym_2024/utils/constant.dart';
 import 'package:twym_2024/utils/local_images.dart';
+import 'package:twym_2024/view/account/privacy_policy/cookies_policy_view.dart';
+import 'package:twym_2024/view/account/privacy_policy/privacy_policy_view.dart';
+import 'package:twym_2024/view/account/privacy_policy/terms_condition_view.dart';
 
 import '../../utils/common_colors.dart';
 import '../../utils/common_utils.dart';
 import '../common_view/scaffold_bg.dart';
+import 'edit_profile/edit_profile_view.dart';
 
 class AccountView extends StatefulWidget {
   const AccountView({super.key});
@@ -18,6 +22,67 @@ class AccountView extends StatefulWidget {
 class _AccountViewState extends State<AccountView> {
   File? selectedImage;
   String imagePath = "";
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 8),
+            child: Container(
+              width: kDeviceWidth / 2.5,
+              // color: Colors.deepOrangeAccent,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      push(TermsConditionView()).then((_) {
+                        Navigator.pop(context);
+                      });
+                    },
+                    child: Text(
+                      "Terms and Conditions",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Divider(
+                    color: CommonColors.mGrey300,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      push(PrivacyPolicyView()).then((_) {
+                        Navigator.pop(context);
+                      });
+                    },
+                    child: Text(
+                      "Privacy Policy",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Divider(
+                    color: CommonColors.mGrey300,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      push(CookiesPolicyView()).then((_) {
+                        Navigator.pop(context);
+                      });
+                    },
+                    child: Text(
+                      "Cookies Policy",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +281,9 @@ class _AccountViewState extends State<AccountView> {
                           Icons.mode_edit_outlined,
                           size: 22,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          push(EditProfileView());
+                        },
                       ),
                       ListTile(
                         leading:
@@ -234,7 +301,9 @@ class _AccountViewState extends State<AccountView> {
                           Icons.chevron_right_rounded,
                           size: 32,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          _dialogBuilder(context);
+                        },
                       ),
                       ListTile(
                         leading: const Icon(Icons.calendar_month_outlined,

@@ -8,6 +8,7 @@ class CommonColors {
   static const mGrey = Colors.grey;
   static const greenColor = Color(0xFF2C7E05);
   static const appGreenColor = Color(0xFF31B47C);
+  static const appPinkColor = Color(0xffdb1e5a);
   static const iosGreenColor = Color(0xFF34C759);
   static final mGrey200 = Colors.grey.shade200;
   static final mGrey300 = Colors.grey.shade300;

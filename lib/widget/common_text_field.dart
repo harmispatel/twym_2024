@@ -407,6 +407,7 @@ class LabeledTextField extends StatelessWidget {
   final void Function(String)? onEditComplete;
   final double? height;
   final bool? isObscure;
+  final Widget? suffixIcon;
 
   const LabeledTextField({
     this.controller,
@@ -421,6 +422,7 @@ class LabeledTextField extends StatelessWidget {
     this.height,
     this.isObscure,
     this.readOnly,
+    this.suffixIcon,
     Key? key,
   }) : super(key: key);
 
@@ -432,11 +434,11 @@ class LabeledTextField extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: CommonColors.blackColor),
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        border: Border.all(color: CommonColors.mGrey),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
         boxShadow: [
           BoxShadow(
-            color: CommonColors.black45,
+            color: CommonColors.mGrey500,
             blurRadius: 5,
             offset: Offset(0, 4),
             spreadRadius: 0,
@@ -463,6 +465,7 @@ class LabeledTextField extends StatelessWidget {
               }
             : null,
         decoration: InputDecoration(
+          suffixIcon: suffixIcon,
           counterText: "",
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 8, vertical: 7),

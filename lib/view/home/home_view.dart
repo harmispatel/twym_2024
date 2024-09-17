@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_stack/flutter_image_stack.dart';
 import 'package:twym_2024/utils/common_colors.dart';
+import 'package:twym_2024/utils/common_utils.dart';
 import 'package:twym_2024/utils/constant.dart';
 import 'package:twym_2024/utils/local_images.dart';
 import 'package:twym_2024/view/common_view/scaffold_bg.dart';
 
 import '../../widget/common_text_field.dart';
+import 'event_details/event_details_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -313,37 +315,43 @@ class _HomeViewState extends State<HomeView> {
                                         )
                                       ],
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          gradient: LinearGradient(
-                                              colors: [
-                                                CommonColors.primaryColor
-                                                    .withOpacity(0.5),
-                                                CommonColors.primaryColor,
-                                              ],
-                                              stops: [
-                                                0.0,
-                                                1.0
-                                              ],
-                                              begin: FractionalOffset.topCenter,
-                                              end:
-                                                  FractionalOffset.bottomCenter,
-                                              tileMode: TileMode.repeated)),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 10,
-                                              bottom: 10,
-                                              right: 15,
-                                              left: 15),
-                                          child: Text(
-                                            "Register",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: getAppStyle(
-                                                color: CommonColors.mWhite,
-                                                fontSize: 16),
+                                    GestureDetector(
+                                      onTap: () {
+                                        push(EventDetailsView());
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            gradient: LinearGradient(
+                                                colors: [
+                                                  CommonColors.primaryColor
+                                                      .withOpacity(0.5),
+                                                  CommonColors.primaryColor,
+                                                ],
+                                                stops: [
+                                                  0.0,
+                                                  1.0
+                                                ],
+                                                begin:
+                                                    FractionalOffset.topCenter,
+                                                end: FractionalOffset
+                                                    .bottomCenter,
+                                                tileMode: TileMode.repeated)),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 10,
+                                                bottom: 10,
+                                                right: 15,
+                                                left: 15),
+                                            child: Text(
+                                              "Register",
+                                              overflow: TextOverflow.ellipsis,
+                                              style: getAppStyle(
+                                                  color: CommonColors.mWhite,
+                                                  fontSize: 16),
+                                            ),
                                           ),
                                         ),
                                       ),
