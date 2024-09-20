@@ -6,6 +6,7 @@ import 'package:twym_2024/utils/constant.dart';
 
 import '../../../utils/common_utils.dart';
 import '../../../widget/primary_button.dart';
+import 'buy_ticket/select_ticket_view.dart';
 import 'event_organizer_profile/event_organizer_profile_view.dart';
 
 class EventDetailsView extends StatefulWidget {
@@ -404,7 +405,9 @@ class _EventDetailsViewState extends State<EventDetailsView> {
                           height: 50,
                           label: "Buy A Ticket",
                           lblSize: 20,
-                          onPress: () {},
+                          onPress: () {
+                            push(SelectTicketView());
+                          },
                         ),
                       ],
                     ),

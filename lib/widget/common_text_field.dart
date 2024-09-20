@@ -402,6 +402,7 @@ class LabeledTextField extends StatelessWidget {
   final int? maxLength;
   final bool isRequired;
   final bool? enabled;
+  final bool isShadow;
   final bool? readOnly;
   final TextInputAction? textInputAction;
   final void Function(String)? onEditComplete;
@@ -417,6 +418,7 @@ class LabeledTextField extends StatelessWidget {
     this.maxLength,
     this.isRequired = false,
     this.enabled,
+    this.isShadow = true,
     this.textInputAction,
     this.onEditComplete,
     this.height,
@@ -436,14 +438,16 @@ class LabeledTextField extends StatelessWidget {
         color: Colors.white,
         border: Border.all(color: CommonColors.mGrey),
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        boxShadow: [
-          BoxShadow(
-            color: CommonColors.mGrey500,
-            blurRadius: 5,
-            offset: Offset(0, 4),
-            spreadRadius: 0,
-          )
-        ],
+        boxShadow: isShadow
+            ? [
+                BoxShadow(
+                  color: CommonColors.mGrey500,
+                  blurRadius: 5,
+                  offset: Offset(0, 4),
+                  spreadRadius: 0,
+                ),
+              ]
+            : [],
       ),
       margin: const EdgeInsets.symmetric(vertical: 5),
       padding: const EdgeInsets.only(top: 5, left: 5.0),

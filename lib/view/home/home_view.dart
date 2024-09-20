@@ -8,6 +8,9 @@ import 'package:twym_2024/view/common_view/scaffold_bg.dart';
 
 import '../../widget/common_text_field.dart';
 import 'event_details/event_details_view.dart';
+import 'events/AllEventsView.dart';
+import 'message/message_view.dart';
+import 'notification/notification_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -65,16 +68,26 @@ class _HomeViewState extends State<HomeView> {
                               size: 20,
                             ),
                             kCommonSpaceH8,
-                            Icon(
-                              Icons.mail,
-                              color: CommonColors.appGreenColor,
-                              size: 20,
+                            GestureDetector(
+                              onTap: () {
+                                push(MessageView());
+                              },
+                              child: Icon(
+                                Icons.mail,
+                                color: CommonColors.appGreenColor,
+                                size: 20,
+                              ),
                             ),
                             kCommonSpaceH8,
-                            Icon(
-                              Icons.notifications_sharp,
-                              color: CommonColors.appGreenColor,
-                              size: 20,
+                            GestureDetector(
+                              onTap: () {
+                                push(NotificationView());
+                              },
+                              child: Icon(
+                                Icons.notifications_sharp,
+                                color: CommonColors.appGreenColor,
+                                size: 20,
+                              ),
                             ),
                           ],
                         ),
@@ -159,12 +172,17 @@ class _HomeViewState extends State<HomeView> {
                       style: getAppStyle(
                           fontSize: 18, fontWeight: FontWeight.w500),
                     ),
-                    Text(
-                      "VIEW ALL",
-                      style: getAppStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: CommonColors.appGreenColor),
+                    GestureDetector(
+                      onTap: () {
+                        push(AllEventsview());
+                      },
+                      child: Text(
+                        "VIEW ALL",
+                        style: getAppStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: CommonColors.appGreenColor),
+                      ),
                     ),
                   ],
                 ),
@@ -289,37 +307,235 @@ class _HomeViewState extends State<HomeView> {
                                   ],
                                 ),
                                 kCommonSpaceV5,
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          FlutterImageStack(
+                                            imageList: _images,
+                                            showTotalCount: true,
+                                            totalCount: 3,
+                                            itemRadius: 35,
+                                            itemCount: 3,
+                                            itemBorderWidth: 2,
+                                          ),
+                                          Text(
+                                            "32 Friends joined",
+                                            style: getAppStyle(
+                                              fontSize: 12,
+                                              color: CommonColors.blackColor,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      kCommonSpaceH15,
+                                      kCommonSpaceH15,
+                                      kCommonSpaceH10,
+                                      GestureDetector(
+                                        onTap: () {
+                                          push(EventDetailsView());
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              gradient: LinearGradient(
+                                                  colors: [
+                                                    CommonColors.primaryColor
+                                                        .withOpacity(0.5),
+                                                    CommonColors.primaryColor,
+                                                  ],
+                                                  stops: [
+                                                    0.0,
+                                                    1.0
+                                                  ],
+                                                  begin: FractionalOffset
+                                                      .topCenter,
+                                                  end: FractionalOffset
+                                                      .bottomCenter,
+                                                  tileMode: TileMode.repeated)),
+                                          child: Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10,
+                                                  bottom: 10,
+                                                  right: 15,
+                                                  left: 15),
+                                              child: Text(
+                                                "Register",
+                                                overflow: TextOverflow.ellipsis,
+                                                style: getAppStyle(
+                                                    color: CommonColors.mWhite,
+                                                    fontSize: 16),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 5, bottom: 5, right: 15, left: 3),
+                        child: Container(
+                          width: 250,
+                          decoration: BoxDecoration(
+                            color: CommonColors.mWhite,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: CommonColors.mGrey500,
+                                blurRadius: 3.0,
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Stack(
+                                  children: [
+                                    Container(
+                                      height: 170,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                              "https://st3.depositphotos.com/9999814/18094/i/450/depositphotos_180948292-stock-photo-happy-people-dance-in-nightclub.jpg",
+                                            ),
+                                            fit: BoxFit.fill),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.topRight,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height: 35,
+                                          decoration: BoxDecoration(
+                                              color: CommonColors.mWhite,
+                                              shape: BoxShape.circle),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(6.0),
+                                            child: Icon(
+                                              Icons.favorite_outline_outlined,
+                                              color: CommonColors.mRed,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, bottom: 5),
+                                  child: Text(
+                                    "Travis Scott Music Concert",
+                                    style: getAppStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        FlutterImageStack(
-                                          imageList: _images,
-                                          showTotalCount: true,
-                                          totalCount: 3,
-                                          itemRadius: 35,
-                                          itemCount: 3,
-                                          itemBorderWidth: 2,
-                                        ),
-                                        Text(
-                                          "32 Friends joined",
-                                          style: getAppStyle(
-                                            fontSize: 12,
-                                            color: CommonColors.blackColor,
-                                            fontWeight: FontWeight.w500,
+                                    Flexible(
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.calendar_month,
+                                            color: CommonColors.primaryColor,
+                                            size: 18,
                                           ),
-                                        )
-                                      ],
+                                          Flexible(
+                                            child: Text(
+                                              "31 Aug,24",
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: getAppStyle(
+                                                fontSize: 12,
+                                                color: CommonColors.blackColor,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        push(EventDetailsView());
-                                      },
-                                      child: Container(
+                                    Flexible(
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.location_on,
+                                            color: CommonColors.primaryColor,
+                                            size: 18,
+                                          ),
+                                          Flexible(
+                                            child: Text(
+                                              "Sydney, AU",
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: getAppStyle(
+                                                fontSize: 12,
+                                                color: CommonColors.blackColor,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                kCommonSpaceV5,
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          FlutterImageStack(
+                                            imageList: _images,
+                                            showTotalCount: true,
+                                            totalCount: 3,
+                                            itemRadius: 35,
+                                            itemCount: 3,
+                                            itemBorderWidth: 2,
+                                          ),
+                                          Text(
+                                            "50 Friends joined",
+                                            style: getAppStyle(
+                                              fontSize: 12,
+                                              color: CommonColors.blackColor,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      kCommonSpaceH15,
+                                      kCommonSpaceH15,
+                                      kCommonSpaceH10,
+                                      Container(
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -347,7 +563,6 @@ class _HomeViewState extends State<HomeView> {
                                                 left: 15),
                                             child: Text(
                                               "Register",
-                                              overflow: TextOverflow.ellipsis,
                                               style: getAppStyle(
                                                   color: CommonColors.mWhite,
                                                   fontSize: 16),
@@ -355,8 +570,198 @@ class _HomeViewState extends State<HomeView> {
                                           ),
                                         ),
                                       ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 5, bottom: 5, right: 15, left: 3),
+                        child: Container(
+                          width: 250,
+                          decoration: BoxDecoration(
+                            color: CommonColors.mWhite,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: CommonColors.mGrey500,
+                                blurRadius: 3.0,
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Stack(
+                                  children: [
+                                    Container(
+                                      height: 170,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                "https://media.istockphoto.com/id/2060725792/photo/hands-making-heart-shape-at-music-festival.jpg?s=612x612&w=0&k=20&c=esgToc4qm1oKCQy6owHMu9ibbHN77tB_PuTtTlhIBa4="),
+                                            fit: BoxFit.fill),
+                                      ),
                                     ),
+                                    Align(
+                                      alignment: Alignment.topRight,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          height: 35,
+                                          decoration: BoxDecoration(
+                                              color: CommonColors.mWhite,
+                                              shape: BoxShape.circle),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(6.0),
+                                            child: Icon(
+                                              Icons.favorite_outline_outlined,
+                                              color: CommonColors.mRed,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
                                   ],
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, bottom: 5),
+                                  child: Text(
+                                    "World Music Festival",
+                                    style: getAppStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Flexible(
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.calendar_month,
+                                            color: CommonColors.primaryColor,
+                                            size: 18,
+                                          ),
+                                          Flexible(
+                                            child: Text(
+                                              "25-27 Aug,24",
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: getAppStyle(
+                                                fontSize: 12,
+                                                color: CommonColors.blackColor,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Flexible(
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.location_on,
+                                            color: CommonColors.primaryColor,
+                                            size: 18,
+                                          ),
+                                          Flexible(
+                                            child: Text(
+                                              "Ahmedabad, in",
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: getAppStyle(
+                                                fontSize: 12,
+                                                color: CommonColors.blackColor,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                kCommonSpaceV5,
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          FlutterImageStack(
+                                            imageList: _images,
+                                            showTotalCount: true,
+                                            totalCount: 3,
+                                            itemRadius: 35,
+                                            itemCount: 3,
+                                            itemBorderWidth: 2,
+                                          ),
+                                          Text(
+                                            "32 Friends joined",
+                                            style: getAppStyle(
+                                              fontSize: 12,
+                                              color: CommonColors.blackColor,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      kCommonSpaceH15,
+                                      kCommonSpaceH15,
+                                      kCommonSpaceH10,
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            gradient: LinearGradient(
+                                                colors: [
+                                                  CommonColors.primaryColor
+                                                      .withOpacity(0.5),
+                                                  CommonColors.primaryColor,
+                                                ],
+                                                stops: [
+                                                  0.0,
+                                                  1.0
+                                                ],
+                                                begin:
+                                                    FractionalOffset.topCenter,
+                                                end: FractionalOffset
+                                                    .bottomCenter,
+                                                tileMode: TileMode.repeated)),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 10,
+                                                bottom: 10,
+                                                right: 15,
+                                                left: 15),
+                                            child: Text(
+                                              "Register",
+                                              style: getAppStyle(
+                                                  color: CommonColors.mWhite,
+                                                  fontSize: 16),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
@@ -480,67 +885,74 @@ class _HomeViewState extends State<HomeView> {
                                   ],
                                 ),
                                 kCommonSpaceV5,
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        FlutterImageStack(
-                                          imageList: _images,
-                                          showTotalCount: true,
-                                          totalCount: 3,
-                                          itemRadius: 35,
-                                          itemCount: 3,
-                                          itemBorderWidth: 2,
-                                        ),
-                                        Text(
-                                          "50 Friends joined",
-                                          style: getAppStyle(
-                                            fontSize: 12,
-                                            color: CommonColors.blackColor,
-                                            fontWeight: FontWeight.w500,
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          FlutterImageStack(
+                                            imageList: _images,
+                                            showTotalCount: true,
+                                            totalCount: 3,
+                                            itemRadius: 35,
+                                            itemCount: 3,
+                                            itemBorderWidth: 2,
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          gradient: LinearGradient(
-                                              colors: [
-                                                CommonColors.primaryColor
-                                                    .withOpacity(0.5),
-                                                CommonColors.primaryColor,
-                                              ],
-                                              stops: [
-                                                0.0,
-                                                1.0
-                                              ],
-                                              begin: FractionalOffset.topCenter,
-                                              end:
-                                                  FractionalOffset.bottomCenter,
-                                              tileMode: TileMode.repeated)),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 10,
-                                              bottom: 10,
-                                              right: 15,
-                                              left: 15),
-                                          child: Text(
-                                            "Register",
+                                          Text(
+                                            "50 Friends joined",
                                             style: getAppStyle(
-                                                color: CommonColors.mWhite,
-                                                fontSize: 16),
+                                              fontSize: 12,
+                                              color: CommonColors.blackColor,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      kCommonSpaceH15,
+                                      kCommonSpaceH15,
+                                      kCommonSpaceH10,
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            gradient: LinearGradient(
+                                                colors: [
+                                                  CommonColors.primaryColor
+                                                      .withOpacity(0.5),
+                                                  CommonColors.primaryColor,
+                                                ],
+                                                stops: [
+                                                  0.0,
+                                                  1.0
+                                                ],
+                                                begin:
+                                                    FractionalOffset.topCenter,
+                                                end: FractionalOffset
+                                                    .bottomCenter,
+                                                tileMode: TileMode.repeated)),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 10,
+                                                bottom: 10,
+                                                right: 15,
+                                                left: 15),
+                                            child: Text(
+                                              "Register",
+                                              style: getAppStyle(
+                                                  color: CommonColors.mWhite,
+                                                  fontSize: 16),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
@@ -663,434 +1075,74 @@ class _HomeViewState extends State<HomeView> {
                                   ],
                                 ),
                                 kCommonSpaceV5,
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        FlutterImageStack(
-                                          imageList: _images,
-                                          showTotalCount: true,
-                                          totalCount: 3,
-                                          itemRadius: 35,
-                                          itemCount: 3,
-                                          itemBorderWidth: 2,
-                                        ),
-                                        Text(
-                                          "32 Friends joined",
-                                          style: getAppStyle(
-                                            fontSize: 12,
-                                            color: CommonColors.blackColor,
-                                            fontWeight: FontWeight.w500,
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          FlutterImageStack(
+                                            imageList: _images,
+                                            showTotalCount: true,
+                                            totalCount: 3,
+                                            itemRadius: 35,
+                                            itemCount: 3,
+                                            itemBorderWidth: 2,
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          gradient: LinearGradient(
-                                              colors: [
-                                                CommonColors.primaryColor
-                                                    .withOpacity(0.5),
-                                                CommonColors.primaryColor,
-                                              ],
-                                              stops: [
-                                                0.0,
-                                                1.0
-                                              ],
-                                              begin: FractionalOffset.topCenter,
-                                              end:
-                                                  FractionalOffset.bottomCenter,
-                                              tileMode: TileMode.repeated)),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 10,
-                                              bottom: 10,
-                                              right: 15,
-                                              left: 15),
-                                          child: Text(
-                                            "Register",
+                                          Text(
+                                            "32 Friends joined",
                                             style: getAppStyle(
-                                                color: CommonColors.mWhite,
-                                                fontSize: 16),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 5, bottom: 5, right: 15, left: 3),
-                        child: Container(
-                          width: 250,
-                          decoration: BoxDecoration(
-                            color: CommonColors.mWhite,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: CommonColors.mGrey500,
-                                blurRadius: 3.0,
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Stack(
-                                  children: [
-                                    Container(
-                                      height: 170,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                              "https://st3.depositphotos.com/9999814/18094/i/450/depositphotos_180948292-stock-photo-happy-people-dance-in-nightclub.jpg",
+                                              fontSize: 12,
+                                              color: CommonColors.blackColor,
+                                              fontWeight: FontWeight.w500,
                                             ),
-                                            fit: BoxFit.fill),
+                                          )
+                                        ],
                                       ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          height: 35,
-                                          decoration: BoxDecoration(
-                                              color: CommonColors.mWhite,
-                                              shape: BoxShape.circle),
+                                      kCommonSpaceH15,
+                                      kCommonSpaceH15,
+                                      kCommonSpaceH10,
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            gradient: LinearGradient(
+                                                colors: [
+                                                  CommonColors.primaryColor
+                                                      .withOpacity(0.5),
+                                                  CommonColors.primaryColor,
+                                                ],
+                                                stops: [
+                                                  0.0,
+                                                  1.0
+                                                ],
+                                                begin:
+                                                    FractionalOffset.topCenter,
+                                                end: FractionalOffset
+                                                    .bottomCenter,
+                                                tileMode: TileMode.repeated)),
+                                        child: Center(
                                           child: Padding(
-                                            padding: const EdgeInsets.all(6.0),
-                                            child: Icon(
-                                              Icons.favorite_outline_outlined,
-                                              color: CommonColors.mRed,
+                                            padding: const EdgeInsets.only(
+                                                top: 10,
+                                                bottom: 10,
+                                                right: 15,
+                                                left: 15),
+                                            child: Text(
+                                              "Register",
+                                              style: getAppStyle(
+                                                  color: CommonColors.mWhite,
+                                                  fontSize: 16),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    )
-                                  ],
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 5, bottom: 5),
-                                  child: Text(
-                                    "Travis Scott Music Concert",
-                                    style: getAppStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
+                                    ],
                                   ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.calendar_month,
-                                            color: CommonColors.primaryColor,
-                                            size: 18,
-                                          ),
-                                          Flexible(
-                                            child: Text(
-                                              "31 Aug,24",
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: getAppStyle(
-                                                fontSize: 12,
-                                                color: CommonColors.blackColor,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.location_on,
-                                            color: CommonColors.primaryColor,
-                                            size: 18,
-                                          ),
-                                          Flexible(
-                                            child: Text(
-                                              "Sydney, AU",
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: getAppStyle(
-                                                fontSize: 12,
-                                                color: CommonColors.blackColor,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                kCommonSpaceV5,
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        FlutterImageStack(
-                                          imageList: _images,
-                                          showTotalCount: true,
-                                          totalCount: 3,
-                                          itemRadius: 35,
-                                          itemCount: 3,
-                                          itemBorderWidth: 2,
-                                        ),
-                                        Text(
-                                          "50 Friends joined",
-                                          style: getAppStyle(
-                                            fontSize: 12,
-                                            color: CommonColors.blackColor,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          gradient: LinearGradient(
-                                              colors: [
-                                                CommonColors.primaryColor
-                                                    .withOpacity(0.5),
-                                                CommonColors.primaryColor,
-                                              ],
-                                              stops: [
-                                                0.0,
-                                                1.0
-                                              ],
-                                              begin: FractionalOffset.topCenter,
-                                              end:
-                                                  FractionalOffset.bottomCenter,
-                                              tileMode: TileMode.repeated)),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 10,
-                                              bottom: 10,
-                                              right: 15,
-                                              left: 15),
-                                          child: Text(
-                                            "Register",
-                                            style: getAppStyle(
-                                                color: CommonColors.mWhite,
-                                                fontSize: 16),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 5, bottom: 5, right: 15, left: 3),
-                        child: Container(
-                          width: 250,
-                          decoration: BoxDecoration(
-                            color: CommonColors.mWhite,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: CommonColors.mGrey500,
-                                blurRadius: 3.0,
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Stack(
-                                  children: [
-                                    Container(
-                                      height: 170,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                "https://media.istockphoto.com/id/2060725792/photo/hands-making-heart-shape-at-music-festival.jpg?s=612x612&w=0&k=20&c=esgToc4qm1oKCQy6owHMu9ibbHN77tB_PuTtTlhIBa4="),
-                                            fit: BoxFit.fill),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.topRight,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          height: 35,
-                                          decoration: BoxDecoration(
-                                              color: CommonColors.mWhite,
-                                              shape: BoxShape.circle),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(6.0),
-                                            child: Icon(
-                                              Icons.favorite_outline_outlined,
-                                              color: CommonColors.mRed,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 5, bottom: 5),
-                                  child: Text(
-                                    "World Music Festival",
-                                    style: getAppStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.calendar_month,
-                                            color: CommonColors.primaryColor,
-                                            size: 18,
-                                          ),
-                                          Flexible(
-                                            child: Text(
-                                              "25-27 Aug,24",
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: getAppStyle(
-                                                fontSize: 12,
-                                                color: CommonColors.blackColor,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.location_on,
-                                            color: CommonColors.primaryColor,
-                                            size: 18,
-                                          ),
-                                          Flexible(
-                                            child: Text(
-                                              "Ahmedabad, in",
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: getAppStyle(
-                                                fontSize: 12,
-                                                color: CommonColors.blackColor,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                kCommonSpaceV5,
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        FlutterImageStack(
-                                          imageList: _images,
-                                          showTotalCount: true,
-                                          totalCount: 3,
-                                          itemRadius: 35,
-                                          itemCount: 3,
-                                          itemBorderWidth: 2,
-                                        ),
-                                        Text(
-                                          "32 Friends joined",
-                                          style: getAppStyle(
-                                            fontSize: 12,
-                                            color: CommonColors.blackColor,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          gradient: LinearGradient(
-                                              colors: [
-                                                CommonColors.primaryColor
-                                                    .withOpacity(0.5),
-                                                CommonColors.primaryColor,
-                                              ],
-                                              stops: [
-                                                0.0,
-                                                1.0
-                                              ],
-                                              begin: FractionalOffset.topCenter,
-                                              end:
-                                                  FractionalOffset.bottomCenter,
-                                              tileMode: TileMode.repeated)),
-                                      child: Center(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 10,
-                                              bottom: 10,
-                                              right: 15,
-                                              left: 15),
-                                          child: Text(
-                                            "Register",
-                                            style: getAppStyle(
-                                                color: CommonColors.mWhite,
-                                                fontSize: 16),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
                                 )
                               ],
                             ),
@@ -1597,9 +1649,8 @@ class _HomeViewState extends State<HomeView> {
                                                   left: 5, right: 5),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: CommonColors
-                                                      .appGreenColor
-                                                      .withOpacity(0.4),
+                                                  color:
+                                                      CommonColors.primaryColor,
                                                   borderRadius:
                                                       BorderRadius.circular(15),
                                                 ),
@@ -1615,8 +1666,8 @@ class _HomeViewState extends State<HomeView> {
                                                       Icon(
                                                         Icons.check_circle,
                                                         size: 10,
-                                                        color: CommonColors
-                                                            .appGreenColor,
+                                                        color:
+                                                            CommonColors.mWhite,
                                                       ),
                                                       Padding(
                                                         padding:
@@ -1625,8 +1676,9 @@ class _HomeViewState extends State<HomeView> {
                                                         child: Text(
                                                           "Following",
                                                           style: getAppStyle(
-                                                              color: CommonColors
-                                                                  .appGreenColor,
+                                                              color:
+                                                                  CommonColors
+                                                                      .mWhite,
                                                               height: 1,
                                                               fontSize: 8),
                                                         ),
@@ -1669,7 +1721,7 @@ class _HomeViewState extends State<HomeView> {
                                                   left: 5, right: 5),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: CommonColors.mGrey300,
+                                                  color: CommonColors.mGrey200,
                                                   borderRadius:
                                                       BorderRadius.circular(15),
                                                 ),
@@ -1808,9 +1860,8 @@ class _HomeViewState extends State<HomeView> {
                                                   left: 5, right: 5),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: CommonColors
-                                                      .appGreenColor
-                                                      .withOpacity(0.4),
+                                                  color:
+                                                      CommonColors.primaryColor,
                                                   borderRadius:
                                                       BorderRadius.circular(15),
                                                 ),
@@ -1826,8 +1877,8 @@ class _HomeViewState extends State<HomeView> {
                                                       Icon(
                                                         Icons.check_circle,
                                                         size: 10,
-                                                        color: CommonColors
-                                                            .appGreenColor,
+                                                        color:
+                                                            CommonColors.mWhite,
                                                       ),
                                                       Padding(
                                                         padding:
@@ -1836,8 +1887,9 @@ class _HomeViewState extends State<HomeView> {
                                                         child: Text(
                                                           "Following",
                                                           style: getAppStyle(
-                                                              color: CommonColors
-                                                                  .appGreenColor,
+                                                              color:
+                                                                  CommonColors
+                                                                      .mWhite,
                                                               height: 1,
                                                               fontSize: 8),
                                                         ),
@@ -2044,9 +2096,8 @@ class _HomeViewState extends State<HomeView> {
                                                   left: 5, right: 5),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: CommonColors
-                                                      .appGreenColor
-                                                      .withOpacity(0.4),
+                                                  color:
+                                                      CommonColors.primaryColor,
                                                   borderRadius:
                                                       BorderRadius.circular(15),
                                                 ),
@@ -2062,8 +2113,8 @@ class _HomeViewState extends State<HomeView> {
                                                       Icon(
                                                         Icons.check_circle,
                                                         size: 10,
-                                                        color: CommonColors
-                                                            .appGreenColor,
+                                                        color:
+                                                            CommonColors.mWhite,
                                                       ),
                                                       Padding(
                                                         padding:
@@ -2072,8 +2123,9 @@ class _HomeViewState extends State<HomeView> {
                                                         child: Text(
                                                           "Following",
                                                           style: getAppStyle(
-                                                              color: CommonColors
-                                                                  .appGreenColor,
+                                                              color:
+                                                                  CommonColors
+                                                                      .mWhite,
                                                               height: 1,
                                                               fontSize: 8),
                                                         ),
