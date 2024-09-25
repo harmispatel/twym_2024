@@ -5,8 +5,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
@@ -14,8 +12,6 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:pinput/pinput.dart';
-import 'package:provider/provider.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 
 import '../generated/i18n.dart';
@@ -23,7 +19,6 @@ import '../utils/constant.dart';
 import '../widget/primary_button.dart';
 import 'common_colors.dart';
 import 'global_variables.dart';
-import 'local_images.dart';
 
 class Screen {
   static double height() {
@@ -270,8 +265,6 @@ int getMonthSizeBetweenDates(String initialDate, String endDate) {
       1;
 }
 
-
-
 final defaultPinTheme = PinTheme(
   width: 42,
   height: 42,
@@ -353,7 +346,6 @@ extension StringExtensions on String {
     return replaceAll(' ', '');
   }
 }
-
 
 String getDiscount({required String price, required String salePrice}) {
   int percent = 0;
@@ -438,7 +430,7 @@ class CommonUtils {
           margin: const EdgeInsets.all(4),
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            // color: color ?? CommonColors.greenColor,
+            color: color ?? CommonColors.greenColor,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
@@ -1202,8 +1194,6 @@ Widget getRequiredTitle(title) {
 //   });
 // }
 
-
-
 Widget getSwitch({
   required String lbl,
   Function(bool)? onChanged,
@@ -1294,7 +1284,7 @@ void successDialog(msg) {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-             Icon(
+            Icon(
               Icons.check_circle,
               size: 50,
               // color: CommonColors.greenColor,
@@ -1325,7 +1315,6 @@ void successDialog(msg) {
     },
   );
 }
-
 
 int sentStatus({orderStatus}) {
   if (orderStatus == "Pending Production") {
@@ -1623,8 +1612,6 @@ String convertToLocalDateTime(String date) {
   }
 }*/
 
-
-
 String getTime(String? str) {
   if (str == null || str.isEmpty) return "--:--:-- --";
   String formatted =
@@ -1653,8 +1640,6 @@ extension ExtendedString on String? {
     return this == null || this!.isEmpty ? "--" : this!;
   }
 }
-
-
 
 Future<void> saveNetworkImage(String? image) async {
   if (image == null || image.isEmpty) return;
@@ -1710,4 +1695,3 @@ Future<void> saveNetworkImage(String? image) async {
 //       .then((value) => print('Share Successful'))
 //       .catchError((error) => print('Error sharing: $error'));
 // }
-

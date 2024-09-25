@@ -118,7 +118,7 @@ class _MessageViewState extends State<MessageView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Rasmika mandana",
+                            "Sai Pallvi",
                             style:
                                 TextStyle(color: Colors.black87, fontSize: 16),
                           ),

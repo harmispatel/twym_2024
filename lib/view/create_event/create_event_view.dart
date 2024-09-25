@@ -2,12 +2,16 @@ import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:googleapis/calendar/v3.dart' as calendar;
+import 'package:googleapis/calendar/v3.dart' as google_calendar;
+import 'package:googleapis_auth/auth_io.dart';
+import 'package:http/http.dart' as http;
 import 'package:twym_2024/utils/constant.dart';
 import 'package:twym_2024/view/common_view/scaffold_bg.dart';
 
 import '../../utils/common_colors.dart';
 import '../../utils/common_utils.dart';
-import '../../utils/global_variables.dart';
 import '../../widget/common_appbar.dart';
 import '../../widget/common_text_field.dart';
 import '../../widget/primary_button.dart';
@@ -17,6 +21,53 @@ class CreateEventView extends StatefulWidget {
 
   @override
   State<CreateEventView> createState() => _CreateEventViewState();
+}
+
+class Event {
+  final String title;
+  final DateTime startTime;
+  final DateTime endTime;
+  final String location;
+  final String description;
+
+  Event({
+    required this.title,
+    required this.startTime,
+    required this.endTime,
+    required this.location,
+    required this.description,
+  });
+}
+
+class CalendarService {
+  Future<void> addGoogleCalendarEvent(
+      Event event, AutoRefreshingAuthClient client) async {
+    var calendar = google_calendar.CalendarApi(client);
+    var calendarEvent = google_calendar.Event()
+      ..summary = event.title
+      ..location = event.location
+      ..description = event.description
+      ..start = google_calendar.EventDateTime(
+        dateTime: event.startTime,
+        timeZone: "GMT",
+      )
+      ..end = google_calendar.EventDateTime(
+        dateTime: event.endTime,
+        timeZone: "GMT",
+      );
+
+    try {
+      await calendar.events.insert(calendarEvent, "primary");
+      print("Event added to Google Calendar.");
+    } catch (e) {
+      print("Error adding event to Google Calendar: $e");
+    }
+  }
+
+  String generateICS(Event event) {
+    // Logic to generate ICS file
+    return "ICS content";
+  }
 }
 
 class _CreateEventViewState extends State<CreateEventView> {
@@ -31,7 +82,159 @@ class _CreateEventViewState extends State<CreateEventView> {
   String? selectedEvent = "Choose event type";
   String? selectedEventLocation = "Choose location type";
   String? selectedFee = "Choose fee";
+  final eventNameController = TextEditingController();
   final eventDateController = TextEditingController();
+  final eventStartTimeController = TextEditingController();
+  final eventEndTimeController = TextEditingController();
+
+  final CalendarService _calendarService = CalendarService();
+
+  final _clientID = ClientId(
+      '302715725151-fb84i6nllf5m87sdivo5nq81rp21co7u.apps.googleusercontent.com',
+      '');
+  final _scopes = [calendar.CalendarApi.calendarScope];
+  DateTime? selectedDate;
+  TimeOfDay? selectedStartTime;
+  TimeOfDay? selectedEndTime;
+
+  // Function to obtain the AuthClient
+  Future<AuthClient?> obtainAuthClient() async {
+    try {
+      final googleSignIn = GoogleSignIn(
+        scopes: _scopes,
+      );
+
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      if (googleUser == null) {
+        return null; // The user canceled the sign-in
+      }
+
+      final googleAuth = await googleUser.authentication;
+
+      return authenticatedClient(
+        http.Client(),
+        AccessCredentials(
+          AccessToken(
+            'Bearer',
+            googleAuth.accessToken!,
+            DateTime.now().toUtc().add(Duration(hours: 1)), // Convert to UTC
+          ),
+          null,
+          _scopes,
+        ),
+      );
+    } catch (e) {
+      print('Error obtaining authenticated client: $e');
+      return null;
+    }
+  }
+
+  // Function to create and return the Calendar API instance
+  Future<calendar.CalendarApi?> getCalendarApi() async {
+    final AuthClient? client = await obtainAuthClient();
+    if (client == null) {
+      return null; // Failed to obtain client
+    }
+    return calendar.CalendarApi(client);
+  }
+
+  // Function to show the date picker
+  Future<void> selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        eventDateController.text = "${picked.toLocal()}".split(' ')[0];
+      });
+    }
+  }
+
+  // Function to show the time picker
+  Future<void> selectStartTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: selectedStartTime ?? TimeOfDay.now(),
+    );
+    if (picked != null) {
+      setState(() {
+        selectedStartTime = picked;
+        eventStartTimeController.text =
+            "${picked.hour}:${picked.minute.toString().padLeft(2, '0')}";
+      });
+    }
+  }
+
+  Future<void> selectEndTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: selectedEndTime ??
+          TimeOfDay.now().replacing(
+              hour: TimeOfDay.now().hour + 1), // Default to one hour later
+    );
+    if (picked != null) {
+      setState(() {
+        selectedEndTime = picked;
+        eventEndTimeController.text =
+            "${picked.hour}:${picked.minute.toString().padLeft(2, '0')}";
+      });
+    }
+  }
+
+  // Function to add event to Google Calendar
+  Future<void> addEventToGoogleCalendar({required String eventTitle}) async {
+    final calendar.CalendarApi? calendarApi = await getCalendarApi();
+
+    if (calendarApi == null) {
+      print('Error: Could not obtain calendar API.');
+      return;
+    }
+
+    // Define the date for the event (September 27, 2024)
+    // final DateTime eventStartDate =
+    //     DateTime(2024, 9, 28, 10, 0); // Starting at 10:00 AM
+    // final DateTime eventEndDate =
+    //     eventStartDate.add(Duration(hours: 1));
+
+    final DateTime eventStartDate = DateTime(
+        selectedDate!.year,
+        selectedDate!.month,
+        selectedDate!.day,
+        selectedStartTime!.hour,
+        selectedStartTime!.minute);
+    final DateTime eventEndDate = DateTime(
+        selectedDate!.year,
+        selectedDate!.month,
+        selectedDate!.day,
+        selectedEndTime!.hour,
+        selectedEndTime!.minute);
+
+    final event = calendar.Event()
+      ..summary = eventTitle
+      ..description = selectedEvent
+      ..start = calendar.EventDateTime(
+        dateTime: eventStartDate.toUtc(), // Convert to UTC
+        timeZone: 'UTC', // Use UTC for the time zone
+      )
+      ..end = calendar.EventDateTime(
+        dateTime: eventEndDate.toUtc(), // Convert to UTC
+        timeZone: 'UTC', // Use UTC for the time zone
+      );
+
+    try {
+      await calendarApi.events.insert(event, 'primary');
+      CommonUtils.showSnackBar(
+        "Event added SuccessFully...!",
+        color: CommonColors.greenColor,
+      );
+    } catch (e) {
+      print('Error adding event: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -210,6 +413,7 @@ class _CreateEventViewState extends State<CreateEventView> {
                               );
                             }
                             // else if (globalUserMaster?.image != null) {
+
                             //   // Display the user's stored image if available
                             //   return Image.network(
                             //     globalUserMaster!.image!,
@@ -304,7 +508,7 @@ class _CreateEventViewState extends State<CreateEventView> {
               ),
               CommonTextField(
                 hintText: "Name",
-                // controller: emailController,
+                controller: eventNameController,
               ),
               kCommonSpaceV10,
               Text(
@@ -375,21 +579,22 @@ class _CreateEventViewState extends State<CreateEventView> {
               ),
               CommonTextField(
                 onTap: () async {
-                  DateTime? picked = await showDatePicker(
-                    context: mainNavKey.currentContext!,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime.now().add(
-                        Duration(days: 365 * 10)), // 10 years in the future
-                  );
-                  if (picked != null) {
-                    setState(() {
-                      eventDateController.text =
-                          CommonUtils.dateFormatddMMYYYY(picked.toString());
-                    });
-                  } else {
-                    print(picked);
-                  }
+                  selectDate(context);
+                  // DateTime? picked = await showDatePicker(
+                  //   context: mainNavKey.currentContext!,
+                  //   initialDate: DateTime.now(),
+                  //   firstDate: DateTime.now(),
+                  //   lastDate: DateTime.now().add(
+                  //       Duration(days: 365 * 10)), // 10 years in the future
+                  // );
+                  // if (picked != null) {
+                  //   setState(() {
+                  //     eventDateController.text =
+                  //         CommonUtils.dateFormatddMMYYYY(picked.toString());
+                  //   });
+                  // } else {
+                  //   print(picked);
+                  // }
                 },
                 hintText: "Select event date",
                 controller: eventDateController,
@@ -409,10 +614,14 @@ class _CreateEventViewState extends State<CreateEventView> {
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                         CommonTextField(
+                          onTap: () {
+                            selectStartTime(context);
+                          },
                           hintText: "Start time",
                           suffixIcon: Icons.access_time,
                           isIconButton: true,
-                          // controller: emailController,
+                          readOnly: true,
+                          controller: eventStartTimeController,
                         ),
                       ],
                     ),
@@ -428,10 +637,14 @@ class _CreateEventViewState extends State<CreateEventView> {
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                         CommonTextField(
+                          onTap: () {
+                            selectEndTime(context);
+                          },
                           hintText: "End time",
                           suffixIcon: Icons.access_time,
                           isIconButton: true,
-                          // controller: emailController,
+                          readOnly: true,
+                          controller: eventEndTimeController,
                         ),
                       ],
                     ),
@@ -576,15 +789,55 @@ class _CreateEventViewState extends State<CreateEventView> {
               ),
               kCommonSpaceV10,
               PrimaryButton(
-                height: 50,
-                label: "Submit",
-                lblSize: 20,
-                onPress: () {},
-              ),
+                  height: 50,
+                  label: "Submit",
+                  lblSize: 20,
+                  onPress: () {
+                    if (isValid()) {
+                      addEventToGoogleCalendar(
+                          eventTitle: eventNameController.text.toString());
+                    }
+                  }),
             ],
           ),
         ),
       ),
     );
+  }
+
+  bool isValid() {
+    if (eventNameController.text.trim().isEmpty) {
+      CommonUtils.showSnackBar(
+        "Please enter Event Name",
+        color: CommonColors.mRed,
+      );
+      return false;
+    } else if (selectedEvent == "Choose event type") {
+      CommonUtils.showSnackBar(
+        "Please select Event Type",
+        color: CommonColors.mRed,
+      );
+      return false;
+    } else if (eventDateController.text.trim().isEmpty) {
+      CommonUtils.showSnackBar(
+        "Please select Event Date",
+        color: CommonColors.mRed,
+      );
+      return false;
+    } else if (eventStartTimeController.text.trim().isEmpty) {
+      CommonUtils.showSnackBar(
+        "Please select Event start time",
+        color: CommonColors.mRed,
+      );
+      return false;
+    } else if (eventEndTimeController.text.trim().isEmpty) {
+      CommonUtils.showSnackBar(
+        "Please select Event end time",
+        color: CommonColors.mRed,
+      );
+      return false;
+    } else {
+      return true;
+    }
   }
 }

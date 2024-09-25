@@ -627,7 +627,7 @@ class _AllEventsviewState extends State<AllEventsview> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Container(
+                                          SizedBox(
                                             width: 180,
                                             child: Text(
                                               "Project Team Meeting",
