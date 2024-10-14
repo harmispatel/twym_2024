@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:twym_2024/utils/common_colors.dart';
 import 'package:twym_2024/utils/common_utils.dart';
 import 'package:twym_2024/utils/constant.dart';
@@ -9,7 +10,7 @@ import 'package:twym_2024/view/register/register_view.dart';
 import '../../widget/common_social_media_container.dart';
 import '../../widget/common_text_field.dart';
 import '../../widget/primary_button.dart';
-import '../subscription/subscription_view.dart';
+import 'login_view_model.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -19,8 +20,23 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+
+  late LoginViewModel mViewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      mViewModel.attachedContext(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    mViewModel = Provider.of<LoginViewModel>(context);
+
     return ScaffoldBG(
       child: SafeArea(
         child: Scaffold(
@@ -51,12 +67,12 @@ class _LoginViewState extends State<LoginView> {
                   kCommonSpaceV50,
                   CommonTextField(
                     hintText: "Email",
-                    // controller: emailController,
+                    controller: emailController,
                   ),
                   CommonTextField(
                     hintText: "Password",
                     obscureText: true,
-                    // controller: emailController,
+                    controller: passController,
                   ),
                   Align(
                     alignment: Alignment.centerRight,
@@ -75,7 +91,14 @@ class _LoginViewState extends State<LoginView> {
                     label: "Sign in",
                     lblSize: 20,
                     onPress: () {
-                      push(SubscriptionView());
+                      if (isValid()) {
+                        mViewModel.loginApi(
+                            auth: "email",
+                            country: "US",
+                            input: emailController.text,
+                            pin: passController.text);
+                      }
+                      // push(SubscriptionView());
                     },
                   ),
                   kCommonSpaceV20,
@@ -131,5 +154,18 @@ class _LoginViewState extends State<LoginView> {
         ),
       ),
     );
+  }
+
+  bool isValid() {
+    if (emailController.text.trim().isEmpty) {
+      CommonUtils.showSnackBar("Please enter email", color: CommonColors.mRed);
+      return false;
+    } else if (passController.text.trim().isEmpty) {
+      CommonUtils.showSnackBar("Please enter password",
+          color: CommonColors.mRed);
+      return false;
+    } else {
+      return true;
+    }
   }
 }

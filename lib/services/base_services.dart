@@ -1,14 +1,12 @@
-
+import '../models/common_master.dart';
+import '../models/login_master.dart';
 
 abstract class BaseServices {
-  // Future<UploadMaster?> uploadPhotoOrVideo({
-  //   required Map<String, String> param,
-  //   required File file,
-  //   void Function(int, int)? onProgress,
-  // });
-  //
-  // Future<AlbumMaster?> getAlbumList({required Map<String, dynamic> param});
-  //
-  // Future<SupportTicketDetailsMaster?> getSupportTicketDetails(
-  //     {required Map<String, dynamic> param});
-  }
+  Future<CommonMaster?> register({
+    required Map<String, dynamic> params,
+  });
+
+  Future<LoginMaster?> login({
+    required Map<String, dynamic> params,
+  });
+}

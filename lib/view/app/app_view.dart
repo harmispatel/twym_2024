@@ -15,6 +15,7 @@ import '../../utils/constant.dart';
 import '../../utils/global_variables.dart';
 import '../common_view/splash/splash_view.dart';
 import '../common_view/splash/splash_view_model.dart';
+import '../login/login_view_model.dart';
 import '../register/register_view_model.dart';
 import 'app_model.dart';
 
@@ -100,6 +101,8 @@ class AppState extends State<App> {
                   create: (_) => SplashViewModel()),
               ChangeNotifierProvider<RegisterViewModel>(
                   create: (_) => RegisterViewModel()),
+              ChangeNotifierProvider<LoginViewModel>(
+                  create: (_) => LoginViewModel()),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

@@ -4,7 +4,6 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/calendar/v3.dart' as calendar;
-import 'package:googleapis/calendar/v3.dart' as google_calendar;
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:http/http.dart' as http;
 import 'package:twym_2024/utils/constant.dart';
@@ -15,59 +14,13 @@ import '../../utils/common_utils.dart';
 import '../../widget/common_appbar.dart';
 import '../../widget/common_text_field.dart';
 import '../../widget/primary_button.dart';
+import 'calendar_service.dart';
 
 class CreateEventView extends StatefulWidget {
   const CreateEventView({super.key});
 
   @override
   State<CreateEventView> createState() => _CreateEventViewState();
-}
-
-class Event {
-  final String title;
-  final DateTime startTime;
-  final DateTime endTime;
-  final String location;
-  final String description;
-
-  Event({
-    required this.title,
-    required this.startTime,
-    required this.endTime,
-    required this.location,
-    required this.description,
-  });
-}
-
-class CalendarService {
-  Future<void> addGoogleCalendarEvent(
-      Event event, AutoRefreshingAuthClient client) async {
-    var calendar = google_calendar.CalendarApi(client);
-    var calendarEvent = google_calendar.Event()
-      ..summary = event.title
-      ..location = event.location
-      ..description = event.description
-      ..start = google_calendar.EventDateTime(
-        dateTime: event.startTime,
-        timeZone: "GMT",
-      )
-      ..end = google_calendar.EventDateTime(
-        dateTime: event.endTime,
-        timeZone: "GMT",
-      );
-
-    try {
-      await calendar.events.insert(calendarEvent, "primary");
-      print("Event added to Google Calendar.");
-    } catch (e) {
-      print("Error adding event to Google Calendar: $e");
-    }
-  }
-
-  String generateICS(Event event) {
-    // Logic to generate ICS file
-    return "ICS content";
-  }
 }
 
 class _CreateEventViewState extends State<CreateEventView> {
@@ -86,8 +39,6 @@ class _CreateEventViewState extends State<CreateEventView> {
   final eventDateController = TextEditingController();
   final eventStartTimeController = TextEditingController();
   final eventEndTimeController = TextEditingController();
-
-  final CalendarService _calendarService = CalendarService();
 
   final _clientID = ClientId(
       '302715725151-fb84i6nllf5m87sdivo5nq81rp21co7u.apps.googleusercontent.com',
@@ -228,7 +179,7 @@ class _CreateEventViewState extends State<CreateEventView> {
     try {
       await calendarApi.events.insert(event, 'primary');
       CommonUtils.showSnackBar(
-        "Event added SuccessFully...!",
+        "Event added SuccessFully",
         color: CommonColors.greenColor,
       );
     } catch (e) {
@@ -317,181 +268,184 @@ class _CreateEventViewState extends State<CreateEventView> {
                 ),
               ),
               kCommonSpaceV15,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      final image = await pickSinglePhoto();
-                      if (image != null) {
-                        setState(() {
-                          selectedImage2 = image;
-                          imagePath2 = image.path;
-                        });
-                      }
-                    },
-                    child: SizedBox(
-                      height: 120,
-                      width: kDeviceWidth / 3.5,
-                      child: DottedBorder(
-                        borderType: BorderType.RRect,
-                        radius: Radius.circular(15),
-                        color: Color(0xffEBB02D),
-                        strokeWidth: 1.5,
-                        dashPattern: [6, 3],
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors
-                                .transparent, // Ensure the child has a transparent background
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        final image = await pickSinglePhoto();
+                        if (image != null) {
+                          setState(() {
+                            selectedImage2 = image;
+                            imagePath2 = image.path;
+                          });
+                        }
+                      },
+                      child: SizedBox(
+                        height: 120,
+                        width: kDeviceWidth / 3.5,
+                        child: DottedBorder(
+                          borderType: BorderType.RRect,
+                          radius: Radius.circular(15),
+                          color: Color(0xffEBB02D),
+                          strokeWidth: 1.5,
+                          dashPattern: [6, 3],
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors
+                                  .transparent, // Ensure the child has a transparent background
+                            ),
+                            child: (() {
+                              if (selectedImage2 != null) {
+                                // Display the selected image if available
+                                return Center(
+                                  child: Image.file(
+                                    selectedImage2!,
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              }
+                              // else if (globalUserMaster?.image != null) {
+                              //   // Display the user's stored image if available
+                              //   return Image.network(
+                              //     globalUserMaster!.image!,
+                              //     fit: BoxFit.cover,
+                              //   );
+                              // }
+                              else {
+                                return Center(
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 28,
+                                    color: Color(0xffEBB02D),
+                                  ),
+                                );
+                              }
+                            })(),
                           ),
-                          child: (() {
-                            if (selectedImage2 != null) {
-                              // Display the selected image if available
-                              return Center(
-                                child: Image.file(
-                                  selectedImage2!,
-                                  fit: BoxFit.cover,
-                                ),
-                              );
-                            }
-                            // else if (globalUserMaster?.image != null) {
-                            //   // Display the user's stored image if available
-                            //   return Image.network(
-                            //     globalUserMaster!.image!,
-                            //     fit: BoxFit.cover,
-                            //   );
-                            // }
-                            else {
-                              return Center(
-                                child: Icon(
-                                  Icons.add,
-                                  size: 28,
-                                  color: Color(0xffEBB02D),
-                                ),
-                              );
-                            }
-                          })(),
                         ),
                       ),
                     ),
-                  ),
-                  kCommonSpaceH15,
-                  GestureDetector(
-                    onTap: () async {
-                      final image = await pickSinglePhoto();
-                      if (image != null) {
-                        setState(() {
-                          selectedImage3 = image;
-                          imagePath3 = image.path;
-                        });
-                      }
-                    },
-                    child: SizedBox(
-                      height: 120,
-                      width: kDeviceWidth / 3.5,
-                      child: DottedBorder(
-                        borderType: BorderType.RRect,
-                        radius: Radius.circular(15),
-                        color: Color(0xffEBB02D),
-                        strokeWidth: 1.5,
-                        dashPattern: [6, 3],
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors
-                                .transparent, // Ensure the child has a transparent background
-                          ),
-                          child: (() {
-                            if (selectedImage3 != null) {
-                              // Display the selected image if available
-                              return Center(
-                                child: Image.file(
-                                  selectedImage3!,
-                                  fit: BoxFit.cover,
-                                ),
-                              );
-                            }
-                            // else if (globalUserMaster?.image != null) {
+                    kCommonSpaceH15,
+                    GestureDetector(
+                      onTap: () async {
+                        final image = await pickSinglePhoto();
+                        if (image != null) {
+                          setState(() {
+                            selectedImage3 = image;
+                            imagePath3 = image.path;
+                          });
+                        }
+                      },
+                      child: SizedBox(
+                        height: 120,
+                        width: kDeviceWidth / 3.5,
+                        child: DottedBorder(
+                          borderType: BorderType.RRect,
+                          radius: Radius.circular(15),
+                          color: Color(0xffEBB02D),
+                          strokeWidth: 1.5,
+                          dashPattern: [6, 3],
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors
+                                  .transparent, // Ensure the child has a transparent background
+                            ),
+                            child: (() {
+                              if (selectedImage3 != null) {
+                                // Display the selected image if available
+                                return Center(
+                                  child: Image.file(
+                                    selectedImage3!,
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              }
+                              // else if (globalUserMaster?.image != null) {
 
-                            //   // Display the user's stored image if available
-                            //   return Image.network(
-                            //     globalUserMaster!.image!,
-                            //     fit: BoxFit.cover,
-                            //   );
-                            // }
-                            else {
-                              return Center(
-                                child: Icon(
-                                  Icons.add,
-                                  size: 28,
-                                  color: Color(0xffEBB02D),
-                                ),
-                              );
-                            }
-                          })(),
-                        ),
-                      ),
-                    ),
-                  ),
-                  kCommonSpaceH15,
-                  GestureDetector(
-                    onTap: () async {
-                      final image = await pickSinglePhoto();
-                      if (image != null) {
-                        setState(() {
-                          selectedImage4 = image;
-                          imagePath4 = image.path;
-                        });
-                      }
-                    },
-                    child: SizedBox(
-                      height: 120,
-                      width: kDeviceWidth / 3.5,
-                      child: DottedBorder(
-                        borderType: BorderType.RRect,
-                        radius: Radius.circular(15),
-                        color: Color(0xffEBB02D),
-                        strokeWidth: 1.5,
-                        dashPattern: [6, 3],
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors
-                                .transparent, // Ensure the child has a transparent background
+                              //   // Display the user's stored image if available
+                              //   return Image.network(
+                              //     globalUserMaster!.image!,
+                              //     fit: BoxFit.cover,
+                              //   );
+                              // }
+                              else {
+                                return Center(
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 28,
+                                    color: Color(0xffEBB02D),
+                                  ),
+                                );
+                              }
+                            })(),
                           ),
-                          child: (() {
-                            if (selectedImage4 != null) {
-                              // Display the selected image if available
-                              return Center(
-                                child: Image.file(
-                                  selectedImage4!,
-                                  fit: BoxFit.cover,
-                                ),
-                              );
-                            }
-                            // else if (globalUserMaster?.image != null) {
-                            //   // Display the user's stored image if available
-                            //   return Image.network(
-                            //     globalUserMaster!.image!,
-                            //     fit: BoxFit.cover,
-                            //   );
-                            // }
-                            else {
-                              return Center(
-                                child: Icon(
-                                  Icons.add,
-                                  size: 28,
-                                  color: Color(0xffEBB02D),
-                                ),
-                              );
-                            }
-                          })(),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    kCommonSpaceH15,
+                    GestureDetector(
+                      onTap: () async {
+                        final image = await pickSinglePhoto();
+                        if (image != null) {
+                          setState(() {
+                            selectedImage4 = image;
+                            imagePath4 = image.path;
+                          });
+                        }
+                      },
+                      child: SizedBox(
+                        height: 120,
+                        width: kDeviceWidth / 3.5,
+                        child: DottedBorder(
+                          borderType: BorderType.RRect,
+                          radius: Radius.circular(15),
+                          color: Color(0xffEBB02D),
+                          strokeWidth: 1.5,
+                          dashPattern: [6, 3],
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors
+                                  .transparent, // Ensure the child has a transparent background
+                            ),
+                            child: (() {
+                              if (selectedImage4 != null) {
+                                // Display the selected image if available
+                                return Center(
+                                  child: Image.file(
+                                    selectedImage4!,
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              }
+                              // else if (globalUserMaster?.image != null) {
+                              //   // Display the user's stored image if available
+                              //   return Image.network(
+                              //     globalUserMaster!.image!,
+                              //     fit: BoxFit.cover,
+                              //   );
+                              // }
+                              else {
+                                return Center(
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 28,
+                                    color: Color(0xffEBB02D),
+                                  ),
+                                );
+                              }
+                            })(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               kCommonSpaceV10,
               Divider(
@@ -792,10 +746,53 @@ class _CreateEventViewState extends State<CreateEventView> {
                   height: 50,
                   label: "Submit",
                   lblSize: 20,
-                  onPress: () {
+                  onPress: () async {
                     if (isValid()) {
-                      addEventToGoogleCalendar(
-                          eventTitle: eventNameController.text.toString());
+                      if (Platform.isAndroid) {
+                        addEventToGoogleCalendar(
+                            eventTitle: eventNameController.text.toString());
+                      } else if (Platform.isIOS) {
+                        DateTime start = DateTime(
+                          selectedDate!.year,
+                          selectedDate!.month,
+                          selectedDate!.day,
+                          selectedStartTime!.hour,
+                          selectedStartTime!.minute,
+                        );
+                        DateTime end = DateTime(
+                          selectedDate!.year,
+                          selectedDate!.month,
+                          selectedDate!.day,
+                          selectedEndTime!.hour,
+                          selectedEndTime!.minute,
+                        );
+                        print(eventNameController.text);
+                        print(selectedEvent);
+                        print(start);
+                        print(end);
+                        // Call the dynamic event addition method
+                        CalendarServiceForIos calendarService =
+                            CalendarServiceForIos();
+                        bool? success =
+                            await calendarService.addAppleCalendarEvent(
+                          title: eventNameController.text,
+                          description:
+                              "$selectedEvent event", // Example description
+                          start: start,
+                          end: end,
+                        );
+                        if (success == true) {
+                          CommonUtils.showSnackBar(
+                            "Event added SuccessFully",
+                            color: CommonColors.greenColor,
+                          );
+                        } else {
+                          CommonUtils.showSnackBar(
+                            "Failed to add Event",
+                            color: CommonColors.mRed,
+                          );
+                        }
+                      }
                     }
                   }),
             ],

@@ -1,7 +1,54 @@
+import 'dart:developer';
+
+import 'package:twym_2024/models/common_master.dart';
+import 'package:twym_2024/models/login_master.dart';
+
+import 'base_client.dart';
 import 'base_services.dart';
 
 class ApiServices extends BaseServices {
-  // AppBaseClient appBaseClient = AppBaseClient();
+  AppBaseClient appBaseClient = AppBaseClient();
+
+  @override
+  Future<CommonMaster?> register({
+    required Map<String, dynamic> params,
+  }) async {
+    dynamic response = await appBaseClient.postApiCall(
+      url: "https://twymapi.azurewebsites.net/api/users/verifyauthtype",
+      postParams: params,
+    );
+    if (response != null) {
+      try {
+        return CommonMaster.fromJson(response);
+      } on Exception catch (e) {
+        log("Exception :: $e");
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<LoginMaster?> login({
+    required Map<String, dynamic> params,
+  }) async {
+    dynamic response = await appBaseClient.postApiCall(
+      url: "https://twymapi.azurewebsites.net/api/users/basiclogin",
+      postParams: params,
+    );
+    if (response != null) {
+      try {
+        return LoginMaster.fromJson(response);
+      } on Exception catch (e) {
+        log("Exception :: $e");
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
   //
   // @override
   // Future<SignupMaster?> signUp({required Map<String, dynamic>? params}) async {

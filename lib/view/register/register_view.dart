@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:twym_2024/view/register/register_view_model.dart';
 
 import '../../utils/common_colors.dart';
+import '../../utils/common_utils.dart';
 import '../../utils/constant.dart';
 import '../../utils/local_images.dart';
 import '../../widget/common_social_media_container.dart';
@@ -16,8 +19,24 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+  final coPassController = TextEditingController();
+  late RegisterViewModel mViewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      mViewModel.attachedContext(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    mViewModel = Provider.of<RegisterViewModel>(context);
+
     return ScaffoldBG(
       child: SafeArea(
         child: Scaffold(
@@ -48,21 +67,21 @@ class _RegisterViewState extends State<RegisterView> {
                   kCommonSpaceV50,
                   CommonTextField(
                     hintText: "Name",
-                    // controller: emailController,
+                    controller: nameController,
                   ),
                   CommonTextField(
                     hintText: "Email",
-                    // controller: emailController,
+                    controller: emailController,
                   ),
                   CommonTextField(
                     hintText: "Password",
                     obscureText: true,
-                    // controller: emailController,
+                    controller: passController,
                   ),
                   CommonTextField(
                     hintText: "Confirm Password",
                     obscureText: true,
-                    // controller: emailController,
+                    controller: coPassController,
                   ),
                   Align(
                     alignment: Alignment.centerRight,
@@ -80,7 +99,16 @@ class _RegisterViewState extends State<RegisterView> {
                     height: 50,
                     label: "Sign up",
                     lblSize: 20,
-                    onPress: () {},
+                    onPress: () {
+                      if (isValid()) {
+                        mViewModel.registerApi(
+                            auth: "email",
+                            country: "us",
+                            input: emailController.text,
+                            pin: passController.text,
+                            type: "basic");
+                      }
+                    },
                   ),
                   kCommonSpaceV20,
                   InkWell(
@@ -135,5 +163,36 @@ class _RegisterViewState extends State<RegisterView> {
         ),
       ),
     );
+  }
+
+  bool isValid() {
+    if (nameController.text.trim().isEmpty) {
+      CommonUtils.showSnackBar(
+        "Please enter name",
+        color: CommonColors.mRed,
+      );
+      return false;
+    } else if (emailController.text.trim().isEmpty) {
+      CommonUtils.showSnackBar("Please enter email", color: CommonColors.mRed);
+      return false;
+    } else if (!CommonUtils.isvalidEmail(emailController.text.trim())) {
+      CommonUtils.showSnackBar("Please enter valid email",
+          color: CommonColors.mRed);
+      return false;
+    } else if (passController.text.trim().isEmpty) {
+      CommonUtils.showSnackBar("Please enter password",
+          color: CommonColors.mRed);
+      return false;
+    } else if (coPassController.text.trim().isEmpty) {
+      CommonUtils.showSnackBar("Please enter confirm password",
+          color: CommonColors.mRed);
+      return false;
+    } else if (passController.text != coPassController.text) {
+      CommonUtils.showSnackBar("Password and Confirm password must be same",
+          color: CommonColors.mRed);
+      return false;
+    } else {
+      return true;
+    }
   }
 }
