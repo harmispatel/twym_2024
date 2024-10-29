@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twym_2024/view/home/evants_view.dart';
 
 import '../../../utils/common_colors.dart';
 import '../../account/account_view.dart';
@@ -82,7 +83,8 @@ class _BottomNavBarViewState extends State<BottomNavBarView> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     HomeView(),
-    SearchView(),
+    //SearchView(),
+    CalendarEvents(),
     CreateEventView(),
     TwymBookView(),
     AccountView()

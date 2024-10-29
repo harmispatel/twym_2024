@@ -18,14 +18,24 @@ class CommonTextField extends StatelessWidget {
   final bool isPrefixIconButton;
   final bool obscureText;
   final bool? enabled;
+  final Color? bgColor;
+  final Color? borderColor;
+  final Color? hintTextColor;
+  final Color? prefixIconColor;
   final FocusNode? focusNode;
+  final double? hintFontSize;
   final TextInputAction? textInputAction;
   final VoidCallback? onIconPressed;
   final void Function(String)? onEditComplete;
   final double? height;
+  final FontWeight? hintFontWeight;
 
   const CommonTextField({
     this.controller,
+    this.bgColor,
+    this.borderColor,
+    this.hintTextColor,
+    this.prefixIconColor,
     this.hintText,
     this.inputType,
     this.onTap,
@@ -43,6 +53,8 @@ class CommonTextField extends StatelessWidget {
     this.onEditComplete,
     this.height,
     this.focusNode,
+    this.hintFontSize,
+    this.hintFontWeight,
     Key? key,
   }) : super(key: key);
 
@@ -52,9 +64,9 @@ class CommonTextField extends StatelessWidget {
       height: height,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: CommonColors.mGrey200, width: 2),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: bgColor ?? Colors.white,
+        border: Border.all(color: borderColor ?? CommonColors.mGrey200, width: 2),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
         // boxShadow: [
         //   BoxShadow(
         //     color: CommonColors.black45,
@@ -90,7 +102,7 @@ class CommonTextField extends StatelessWidget {
               ? IconButton(
                   icon: Icon(
                     Icons.search,
-                    color: CommonColors.mGrey,
+                    color: prefixIconColor ?? CommonColors.mGrey,
                   ),
                   onPressed: onIconPressed,
                 )
@@ -115,9 +127,9 @@ class CommonTextField extends StatelessWidget {
           ),
           hintText: hintText,
           hintStyle: getAppStyle(
-              color: CommonColors.mGrey,
-              fontSize: 13,
-              fontWeight: FontWeight.normal),
+              color: hintTextColor ?? CommonColors.mGrey,
+              fontSize: hintFontSize ?? 13,
+              fontWeight: hintFontWeight ?? FontWeight.normal),
           border: InputBorder.none,
         ),
         maxLines: maxLines ?? 1,

@@ -70,7 +70,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                     child: Container(
                       width: kDeviceWidth / 1,
                       decoration: BoxDecoration(
-                        color: Color(0xffD7F3FB),
+                        color: const Color(0xffD7F3FB),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                           color: isMonthlySelected
@@ -113,7 +113,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                     child: Container(
                       width: kDeviceWidth / 1,
                       decoration: BoxDecoration(
-                        color: Color(0xffD7F3FB),
+                        color: const Color(0xffD7F3FB),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                           color: !isMonthlySelected
@@ -124,12 +124,10 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
                               children: [
                                 Text(
                                   "Annual",
@@ -138,33 +136,34 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                                     fontSize: 18,
                                   ),
                                 ),
-                                Text(
-                                  "First 30 days free - Then\$930/Year",
-                                  style: getAppStyle(
-                                      color: CommonColors.blackColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500),
-                                )
-                              ],
-                            ),
-                            Container(
-                              height: 20,
-                              decoration: BoxDecoration(
-                                  color: Color(0xffDB1E5A),
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 12, right: 12),
-                                  child: Text(
-                                    "Best Deal",
-                                    style: getAppStyle(
-                                        color: CommonColors.mWhite,
-                                        fontSize: 12),
+                                const Spacer(),
+                                Container(
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                      color: Color(0xffDB1E5A),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 12, right: 12),
+                                      child: Text(
+                                        "Best Deal",
+                                        style: getAppStyle(
+                                            color: CommonColors.mWhite,
+                                            fontSize: 12),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            )
+                              ],
+                            ),
+                            Text(
+                              "First 30 days free - Then\$930/Year",
+                              style: getAppStyle(
+                                  color: CommonColors.blackColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ],
                         ),
                       ),

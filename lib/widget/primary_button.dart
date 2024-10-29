@@ -7,23 +7,27 @@ class PrimaryButton extends StatelessWidget {
   final String? label;
   final Color? labelColor;
   final Color? buttonColor;
+  final Color? borderColor;
   final Color? shadowColor;
   final void Function()? onPress;
   final double? lblSize;
   final double? height;
   final double? width;
   final BorderRadiusGeometry? borderRadius;
+  final bool? isShadowShow;
 
   const PrimaryButton({
     this.label,
     this.onPress,
     this.labelColor,
     this.buttonColor,
+    this.borderColor,
     this.shadowColor,
     this.lblSize,
     this.height,
     this.borderRadius,
     this.width,
+    this.isShadowShow,
     super.key,
   });
 
@@ -36,16 +40,19 @@ class PrimaryButton extends StatelessWidget {
       width: width ?? double.infinity,
       decoration: BoxDecoration(
         color: buttonColor ?? CommonColors.primaryColor,
+        border: Border.all(color: borderColor ?? CommonColors.primaryColor),
         borderRadius: borderRadius ?? BorderRadius.circular(10.0),
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 1),
-            blurRadius: 6,
-            spreadRadius: 0,
-            color: shadowColor?.withOpacity(0.4) ??
-                CommonColors.primaryColor.withOpacity(0.4),
-          )
-        ],
+        boxShadow: isShadowShow == true
+            ? [
+                BoxShadow(
+                  offset: const Offset(0, 1),
+                  blurRadius: 6,
+                  spreadRadius: 0,
+                  color: shadowColor?.withOpacity(0.4) ??
+                      CommonColors.primaryColor.withOpacity(0.4),
+                ),
+              ]
+            : [],
       ),
       child: Material(
         color: Colors.transparent,

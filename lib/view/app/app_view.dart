@@ -5,6 +5,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../generated/i18n.dart';
@@ -104,93 +105,100 @@ class AppState extends State<App> {
               ChangeNotifierProvider<LoginViewModel>(
                   create: (_) => LoginViewModel()),
             ],
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              color: CommonColors.primaryColor,
-              navigatorKey: mainNavKey,
-              locale: Locale(Provider.of<AppModel>(context).locale, ""),
-              theme: ThemeData(
-                useMaterial3: true,
-                scaffoldBackgroundColor: CommonColors.mWhite,
-                primaryColor: CommonColors.primaryColor,
-                fontFamily: AppConstants.OUTFIT_FONT,
-                colorScheme: ColorScheme.light(
-                  primary: CommonColors.primaryColor,
-                ),
-                appBarTheme: AppBarTheme(
-                  backgroundColor: CommonColors.mWhite,
-                  foregroundColor: CommonColors.mWhite,
-                  surfaceTintColor: Colors.transparent,
-                  iconTheme: const IconThemeData(
-                    color: CommonColors.primaryColor,
-                  ),
-                  scrolledUnderElevation: 0,
-                  titleTextStyle: getAppStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: CommonColors.primaryColor,
-                  ),
-                ),
-                menuTheme: MenuThemeData(
-                  style: MenuStyle(
-                    surfaceTintColor:
-                        const MaterialStatePropertyAll(CommonColors.mWhite),
-                    shape: MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+            child: ScreenUtilInit(
+                designSize: Size(375, 812), // Design size for iPhone 11
+                minTextAdapt: true,
+                splitScreenMode: true,
+                builder: (context, child) {
+                  return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  color: CommonColors.primaryColor,
+                  navigatorKey: mainNavKey,
+                  locale: Locale(Provider.of<AppModel>(context).locale, ""),
+                  theme: ThemeData(
+                    useMaterial3: true,
+                    scaffoldBackgroundColor: CommonColors.mWhite,
+                    primaryColor: CommonColors.primaryColor,
+                    fontFamily: AppConstants.OUTFIT_FONT,
+                    colorScheme: ColorScheme.light(
+                      primary: CommonColors.primaryColor,
+                    ),
+                    appBarTheme: AppBarTheme(
+                      backgroundColor: CommonColors.mWhite,
+                      foregroundColor: CommonColors.mWhite,
+                      surfaceTintColor: Colors.transparent,
+                      iconTheme: const IconThemeData(
+                        color: CommonColors.primaryColor,
+                      ),
+                      scrolledUnderElevation: 0,
+                      titleTextStyle: getAppStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: CommonColors.primaryColor,
                       ),
                     ),
-                    elevation: const MaterialStatePropertyAll(20),
-                  ),
-                ),
-                progressIndicatorTheme: const ProgressIndicatorThemeData(
-                  color: CommonColors.primaryColor,
-                  linearMinHeight: 2,
-                ),
-                bottomSheetTheme: const BottomSheetThemeData(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
+                    menuTheme: MenuThemeData(
+                      style: MenuStyle(
+                        surfaceTintColor:
+                            const MaterialStatePropertyAll(CommonColors.mWhite),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        elevation: const MaterialStatePropertyAll(20),
+                      ),
+                    ),
+                    progressIndicatorTheme: const ProgressIndicatorThemeData(
+                      color: CommonColors.primaryColor,
+                      linearMinHeight: 2,
+                    ),
+                    bottomSheetTheme: const BottomSheetThemeData(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                        ),
+                      ),
+                    ),
+                    dialogBackgroundColor: CommonColors.mWhite,
+                    drawerTheme: const DrawerThemeData(
+                      surfaceTintColor: CommonColors.mWhite,
+                      backgroundColor: CommonColors.mWhite,
+                    ),
+                    elevatedButtonTheme: ElevatedButtonThemeData(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: CommonColors.primaryColor,
+                        foregroundColor: CommonColors.mWhite,
+                      ),
+                    ),
+                    listTileTheme: ListTileThemeData(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    inputDecorationTheme: InputDecorationTheme(
+                      contentPadding: const EdgeInsets.all(0),
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      hintStyle: getAppStyle(
+                        color: CommonColors.mGrey,
+                      ),
                     ),
                   ),
-                ),
-                dialogBackgroundColor: CommonColors.mWhite,
-                drawerTheme: const DrawerThemeData(
-                  surfaceTintColor: CommonColors.mWhite,
-                  backgroundColor: CommonColors.mWhite,
-                ),
-                elevatedButtonTheme: ElevatedButtonThemeData(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: CommonColors.primaryColor,
-                    foregroundColor: CommonColors.mWhite,
-                  ),
-                ),
-                listTileTheme: ListTileThemeData(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-                inputDecorationTheme: InputDecorationTheme(
-                  contentPadding: const EdgeInsets.all(0),
-                  border: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  hintStyle: getAppStyle(
-                    color: CommonColors.mGrey,
-                  ),
-                ),
-              ),
-              localizationsDelegates: const [
-                S.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: S.delegate.supportedLocales,
-              localeListResolutionCallback: S.delegate.listResolution(
-                  fallback: const Locale(AppConstants.LANGUAGE_ENGLISH, '')),
-              home: SplashView(),
+                  localizationsDelegates: const [
+                    S.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: S.delegate.supportedLocales,
+                  localeListResolutionCallback: S.delegate.listResolution(
+                      fallback: const Locale(AppConstants.LANGUAGE_ENGLISH, '')),
+                  home: SplashView(),
+                );
+              }
             ),
           );
         },

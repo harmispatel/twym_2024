@@ -29,6 +29,8 @@ class _LoginViewState extends State<LoginView> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
+      emailController.text = "test1@123.com";
+      passController.text = "9012";
       mViewModel.attachedContext(context);
     });
   }

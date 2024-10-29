@@ -20,4 +20,9 @@ class CommonColors {
   static const black12 = Colors.black12;
   static const black45 = Colors.black45;
   static const textColor = Color(0xFF2D2D2D);
+
+  static const textFieldBgColor = Color(0xFFF4F4F4);
+  static const hintTextColor = Color(0xFF425761);
+  static const dottedLineColor = Color(0xFFD5D6DD);
+  static const mBlue = Colors.blue;
 }

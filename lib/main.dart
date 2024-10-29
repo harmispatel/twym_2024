@@ -6,6 +6,12 @@ import 'package:twym_2024/view/app/app_view.dart';
 import 'database/app_preferences.dart';
 
 Future<void> main() async {
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.white
+    ),
+  );
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(
   //   options: FirebaseOptions(

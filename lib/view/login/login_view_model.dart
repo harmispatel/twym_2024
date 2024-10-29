@@ -1,7 +1,7 @@
+import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
-
+import 'package:twym_2024/database/app_preferences.dart';
 import '../../models/login_master.dart';
 import '../../services/api_para.dart';
 import '../../services/index.dart';
@@ -43,17 +43,15 @@ class LoginViewModel with ChangeNotifier {
       );
     } else if (master.success!) {
       log("Success :: true");
-      log("Access Token :: ${master.jwt}");
+      log("JWT Token Local Store :: ${master.jwt}");
+      await AppPreferences.instance.setAccessToken(master.jwt ?? '');
       CommonUtils.showSnackBar(
         master.message,
         color: CommonColors.greenColor,
       );
-      // AppPreferences.instance.setAccessToken(master.sessionId ?? '');
-      push(SubscriptionView());
-      // AppPreferences.instance.setUserDetails(jsonEncode(master.data!.user));
-      // gUserType = master.data!.user!.roleId!.toString();
-      // globalUserMaster = AppPreferences.instance.getUserDetails();
-      // SplashViewModel().checkGlobalUserData();
+      //await AppPreferences.instance.setUserDetails(jsonEncode(master));
+      // Navigate to SubscriptionView
+      await pushAndRemoveUntil(const SubscriptionView());
     }
     notifyListeners();
   }

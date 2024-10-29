@@ -5,6 +5,9 @@ import 'package:twym_2024/utils/common_utils.dart';
 import 'package:twym_2024/utils/constant.dart';
 import 'package:twym_2024/utils/local_images.dart';
 import 'package:twym_2024/view/common_view/scaffold_bg.dart';
+import 'package:twym_2024/view/contact_room/contact_room_view.dart';
+import 'package:twym_2024/view/event_location/event_location_view.dart';
+import 'package:twym_2024/view/home/celecder/celecder_view.dart';
 
 import '../../widget/common_text_field.dart';
 import 'event_details/event_details_view.dart';
@@ -62,12 +65,6 @@ class _HomeViewState extends State<HomeView> {
                       children: [
                         Row(
                           children: [
-                            Icon(
-                              Icons.add_circle_outlined,
-                              color: CommonColors.appGreenColor,
-                              size: 20,
-                            ),
-                            kCommonSpaceH8,
                             GestureDetector(
                               onTap: () {
                                 push(MessageView());
@@ -89,11 +86,23 @@ class _HomeViewState extends State<HomeView> {
                                 size: 20,
                               ),
                             ),
+                            kCommonSpaceH8,
+                            GestureDetector(
+                              onTap: () {
+                                //push(ContactRoomView());
+                                push(EventLocationView());
+                              },
+                              child: const Icon(
+                                Icons.more_vert_outlined,
+                                color: CommonColors.appGreenColor,
+                                size: 20,
+                              ),
+                            ),
                           ],
                         ),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.location_on_sharp,
                               size: 20,
                             ),
@@ -1152,6 +1161,10 @@ class _HomeViewState extends State<HomeView> {
                     ],
                   ),
                 ),
+                kCommonSpaceV10,
+                SizedBox(
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: const CalenderView()),
                 kCommonSpaceV10,
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,

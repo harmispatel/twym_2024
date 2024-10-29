@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -8,7 +7,6 @@ import 'package:googleapis_auth/auth_io.dart';
 import 'package:http/http.dart' as http;
 import 'package:twym_2024/utils/constant.dart';
 import 'package:twym_2024/view/common_view/scaffold_bg.dart';
-
 import '../../utils/common_colors.dart';
 import '../../utils/common_utils.dart';
 import '../../widget/common_appbar.dart';
@@ -56,6 +54,8 @@ class _CreateEventViewState extends State<CreateEventView> {
       );
 
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      print(googleUser);
+      print("googleUser");
       if (googleUser == null) {
         return null; // The user canceled the sign-in
       }
@@ -83,6 +83,9 @@ class _CreateEventViewState extends State<CreateEventView> {
   // Function to create and return the Calendar API instance
   Future<calendar.CalendarApi?> getCalendarApi() async {
     final AuthClient? client = await obtainAuthClient();
+
+    print(client);
+    print("client");
     if (client == null) {
       return null; // Failed to obtain client
     }
@@ -139,6 +142,9 @@ class _CreateEventViewState extends State<CreateEventView> {
   // Function to add event to Google Calendar
   Future<void> addEventToGoogleCalendar({required String eventTitle}) async {
     final calendar.CalendarApi? calendarApi = await getCalendarApi();
+
+    print(calendarApi);
+    print("calendarApi");
 
     if (calendarApi == null) {
       print('Error: Could not obtain calendar API.');
